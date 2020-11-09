@@ -63,7 +63,39 @@ $superheroes = [
   ], 
 ];
 
+// foreach($superheroes as $superhero){
+//     echo "<h2>".$superhero['alias']."</h2>";
+//     echo "<h3>".$superhero['name']."</h3>";
+//     echo " ";
+//     echo $superhero["biography"];
+// }
+
+function heroCheck($superheroes, $formData){
+
+    foreach($superheroes as $superhero){
+
+        if($formData == ($superhero['name']) || $formData == ($superhero['alias'])){
+            return $superhero;
+
+        }
+    }   
+}
+
+function prepareReply($superheroes){
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        
+        $unsanitizedData = json_decode(file_get_contents('php://input'), true);
+        $sanitizedData = trim(filter_var($unsanitizedData, FILTER_SANITIZE_STRING));
+        $heroData = heroCheck($superheroes, ($sanitizedData));
+        echo json_encode($heroData);
+    }
+}
+
+prepareReply($superheroes);
+
+
 ?>
+
 
 <ul>
 <?php foreach ($superheroes as $superhero): ?>
