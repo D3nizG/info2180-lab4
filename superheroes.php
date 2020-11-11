@@ -70,35 +70,36 @@ $superheroes = [
 //     echo $superhero["biography"];
 // }
 
-function heroCheck($superheroes, $formData){
+function heroCheck($superheroes, $data){
 
     foreach($superheroes as $superhero){
 
-        if($formData == ($superhero['name']) || $formData == ($superhero['alias'])){
+        if(strtolower($data) == strtolower(($superhero['name'])) || strtolower($data) == strtolower(($superhero['alias']))){
             return $superhero;
-
         }
-    }   
+    }
+    return 'Hero not Found';   
 }
 
 function prepareReply($superheroes){
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         
-        $unsanitizedData = json_decode(file_get_contents('php://input'), true);
-        $sanitizedData = trim(filter_var($unsanitizedData, FILTER_SANITIZE_STRING));
-        $heroData = heroCheck($superheroes, ($sanitizedData));
-        echo json_encode($heroData);
+        $rawData = json_decode(file_get_contents('php://input'), true);
+        $santized = trim(filter_var($rawData, FILTER_SANITIZE_STRING));
+        $hero = heroCheck($superheroes, $santized);
+        echo json_encode($hero);
+    }else{
+        $line = '';
+        $line .= "<ul>";
+        foreach ($superheroes as $superhero):
+            $line .= "<li>{$superhero['alias']}</li>";
+        endforeach;
+        $line .= "</ul>";
+        echo $line;
     }
-}
+}   
 
 prepareReply($superheroes);
 
-
 ?>
 
-
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
