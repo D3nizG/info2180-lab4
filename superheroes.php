@@ -75,19 +75,25 @@ function heroCheck($superheroes, $data){
     foreach($superheroes as $superhero){
 
         if(strtolower($data) == strtolower(($superhero['name'])) || strtolower($data) == strtolower(($superhero['alias']))){
+            // echo "<h4>".$superhero['name']."</h4>";
+            // echo "<h3>".$superhero['alias']."</h3>";
+            // echo "<p>".$superhero['biography']."</p>";
             return $superhero;
         }
     }
-    return 'Hero not Found';   
+    return "<p>".'Hero not Found'."</p>";
 }
 
 function prepareReply($superheroes){
-    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+    $rawData = $_GET['query'];
+    
+    if ( $rawData !== ""){
         
-        $rawData = json_decode(file_get_contents('php://input'), true);
         $santized = trim(filter_var($rawData, FILTER_SANITIZE_STRING));
         $hero = heroCheck($superheroes, $santized);
         echo json_encode($hero);
+
     }else{
         $line = '';
         $line .= "<ul>";

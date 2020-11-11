@@ -1,0 +1,108 @@
+body{
+    font-family: -apple-system, "Segoe UI", "Open Sans", "Helvetica Neue", sans-serif;
+        margin:0;
+        font-size:16px;
+        background-color: #f7f7f7;
+        background-image: url(superhero.jpg);
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;        
+}
+
+header{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-transform:uppercase;
+    background-color: rgb(10, 58, 148) ;
+    color:white;
+    margin: 5px;
+}
+
+main{
+    width:65%;
+    margin:0 20vw;
+    
+}
+
+
+h2{
+    color: #ffffff;
+}
+
+input{
+    font-size:16px;
+    border: 1px solid #ccc;
+    margin: 8px 0;
+    padding: 0.9vw 2vw;
+    border-radius: 5px;
+}
+
+#bigword{
+    font-size: 30px;
+    color: #ffffff;
+}
+
+h4{
+    font-size: 35px;
+    margin: 0;
+    padding: 0;
+    color: rgb(255, 255, 255);
+}
+
+#result h3{
+    margin: 0;
+    padding: 0;
+    font-size: 25px;
+    color: rgb(255, 255, 255);
+}
+
+#result{
+    background-color: rgb(0, 0, 0);
+    opacity: 0.7;
+}
+
+#result p{
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+form{
+    display: flex;
+    flex-direction: row;
+}
+
+li{
+    color: white;
+    font-size: 20px;
+}
+
+
+input[type=text]{
+    width:70%;
+    box-sizing: border-box;
+    margin-right:3px;
+}
+
+input[type=submit]{
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:10%;
+    background-color:#5c109b;
+    color:white;
+    border: none;
+    margin-right: 3px;
+}
+
+input[type=button]{
+    font-weight: bold;
+    width:10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#9b1010;
+    color:white;
+    border: none;
+}

@@ -2,26 +2,24 @@
 window.onload = function(){
     var searchbar = document.getElementById("search");
     searchbar.addEventListener('click', handleRequest)
+
+    var clearBtn = document.getElementById("clear");
+    clearBtn.addEventListener('click', clearText)
 }
 
-   
-async function recieveJSON(formData){
-    if (formData !== ''){
-    const request  = await fetch('superheroes.php', {
-        method: 'POST',
-        Elements:{
-            // Datatype 
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    });
-    const data =  request.json();
-    return data;
 
+function clearText(){
+    document.getElementById("superhero").value = ''
+    console.log("clicked")
+    let resultSpace = document.getElementById("result");
+    if(resultSpace.innerHTML !== ''){
+        resultSpace.innerHTML = '';
+    }
+}
 
-    }else{
-        recieveList();
-    }   
+async function recieveJSON(){
+
+        recieveList(); 
 }
 
 function heroData(resultDiv, data){
@@ -31,7 +29,7 @@ function heroData(resultDiv, data){
     if(typeof(data) === 'string'){
         result.innerHTML = data;
     }else{
-        var nameElement = document.createElement('h2');
+        var nameElement = document.createElement('h4');
         var name = document.createTextNode(data.name);
         nameElement.appendChild(name);
         result.appendChild(nameElement);
@@ -47,21 +45,29 @@ function heroData(resultDiv, data){
     
 }
 
+function convertJSON(data){
+
+    try{
+        let parsedData = JSON.parse(data);
+        return parsedData;
+    }catch (error){
+        return data;
+    }
+}
+
 function recieveList(){
     var httpRequest = new XMLHttpRequest();
-    var url = `superheroes.php`;
+    var formData = document.getElementById("superhero").value;
+    var url = `superheroes.php?query=${formData}`;
     httpRequest.open('GET', url);
     httpRequest.send();
     
     httpRequest.onreadystatechange = function(){
         var resultDiv = document.getElementById('result');
-        var heroList = httpRequest.responseText;
-    
-        var formData = document.getElementById("superhero").value;
-        
-        if (formData === ""){
-            resultDiv.innerHTML = heroList;
-        }
+        var stringObj = httpRequest.responseText;
+        var heroList = convertJSON(stringObj)
+        // console.log(heroList)
+        heroData(resultDiv, heroList);
     };
 }
 
