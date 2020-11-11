@@ -1,11 +1,11 @@
 "use strict"
-window.onload = function(){
+$(document) .ready(function(){
     var searchbar = document.getElementById("search");
     searchbar.addEventListener('click', handleRequest)
 
     var clearBtn = document.getElementById("clear");
     clearBtn.addEventListener('click', clearText)
-}
+})
 
 
 function clearText(){
